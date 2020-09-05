@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 // создаем тестовый рандомный пост
 
-$factory->define(BlogPost::class, function (Faker $faker) {
+$factory->define(\App\Models\BlogPost::class, function (Faker $faker) {
     $title = $faker->sentence(rand(3, 8), true);    //  sentence - длинна предложения
     $txt = $faker->realText(rand(1000, 4000));
     $isPublished = rand(1, 5) > 1;
