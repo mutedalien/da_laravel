@@ -20,11 +20,13 @@
                             </thead>
                             <tbody>
                             @foreach($paginator as $item)
-                                @php @endphp
+                                @php /** @var \App\Models\BlogCategory $item */ @endphp
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>
-                                        <a href="{{ route('blog.admin.categories.edit', $item->id) }}"></a>
+                                        <a href="{{ route('blog.admin.categories.edit', $item->id) }}">
+                                            {{ $item->title }}
+                                        </a>
                                     </td>
                                     <td @if(in_array($item->parent_id, [0, 1])) style="color: #ccc" @endif>
                                         {{ $item->parent_id }}{{-- $item->parentCategory->tytle --}}
@@ -38,6 +40,7 @@
             </div>
         </div>
         @if($paginator->total() > $paginator->count())
+            @php /** @var Illuminate\Pagination\Paginator $paginator */ @endphp
             <br>
             <div class="row justify-content-center">
                 <div class="col-md-12">
