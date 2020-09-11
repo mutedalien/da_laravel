@@ -76,9 +76,18 @@ class CategoryController extends BaseController
         ];
 
         //$validatedData = $this->validate($request, $rules);
-        $validatedData = $request->validate($rules);
 
-        dd($validatedData);
+        //$validatedData = $request->validate($rules);
+
+//        $validator = \Validator::make($request->all(), $rules);
+//        $validatedData[]    =   $validator->passes();
+//        $validatedData[]    =   $validator->validate();
+//        $validatedData[]    =   $validator->valid();
+//        $validatedData[]    =   $validator->failed();
+//        $validatedData[]    =   $validator->errors();
+//        $validatedData[]    =   $validator->fails();
+
+        //dd($validatedData);
 
         $item = BlogCategory::find($id);
         //dd($item);
