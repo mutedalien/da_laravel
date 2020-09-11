@@ -69,6 +69,7 @@ class CategoryController extends BaseController
     public function update(Request $request, $id)
     {
         $item = BlogCategory::find($id);
+        //dd($item);
         if (empty($item)) {
             return back()
                 ->withErrors(['msg' => "Запись id=[{$id}] не найдена"])
@@ -76,7 +77,9 @@ class CategoryController extends BaseController
         }
 
         $data = $request->all();
-        $result = $item->fill($data)->save();
+        $result = $item
+            ->fill($data)
+            ->save();
 
         if ($result) {
             return redirect()
@@ -88,5 +91,4 @@ class CategoryController extends BaseController
                 ->withInput();
         }
     }
-
 }
