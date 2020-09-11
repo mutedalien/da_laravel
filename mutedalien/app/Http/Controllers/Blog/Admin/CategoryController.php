@@ -19,7 +19,7 @@ class CategoryController extends BaseController
 
         //dd($dsd, $paginator);
 
-        return view('blog.admin.category.index', compact('paginator'));
+        return view('blog.admin.categories.index', compact('paginator'));
     }
 
     /**
@@ -55,7 +55,7 @@ class CategoryController extends BaseController
         $item = BlogCategory::findOrFail($id);
         $categoryList = BlogCategory::all();
 
-        return view('blog.admin.category.edit',
+        return view('blog.admin.categories.edit',
         compact('item', 'categoryList'));
     }
 
