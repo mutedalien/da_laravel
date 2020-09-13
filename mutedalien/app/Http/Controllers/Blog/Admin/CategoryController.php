@@ -30,7 +30,11 @@ class CategoryController extends BaseController
      */
     public function create()
     {
-        dd(__METHOD__);
+        $item = new BlogCategory();
+        $categotyList = BlogCategory::all();
+
+        return view('blog.admin.categories.edit',
+            compact('item', 'categotyList'));
     }
 
     /**
