@@ -34,7 +34,7 @@ class CategoryController extends BaseController
         $categotyList = BlogCategory::all();
 
         return view('blog.admin.categories.edit',
-            compact('item', 'categotyList'));
+            compact('item', 'categoryList'));
     }
 
     /**
