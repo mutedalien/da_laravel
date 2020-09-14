@@ -29,6 +29,14 @@ class BlogCategoryRepository extends CoreRepository
      *
      * @return Collection
      */
+    public function getForComboBox()
+    {
+        return $this->startConditions()->all();
+    }
+
+    /**
+     * @return string
+     */
     public function getModelClass()
     {
         return Model::class;
