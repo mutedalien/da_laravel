@@ -21,7 +21,7 @@ class BlogCategoryRepository extends CoreRepository
      */
     public function getEdit($id)
     {
-        return $this->startConditions()-find($id);
+        return $this->startConditions()->find($id);
     }
 
     /**
