@@ -63,6 +63,7 @@ class CategoryController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(BlogCategoryCreateRequest $request)
     {
         $data = $request->input();
@@ -86,20 +87,21 @@ class CategoryController extends BaseController
         }
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, BlogCategoryRepository $categoryRepository)
+    public function edit($id)
     {
-        //$item = BlogCategory::findOrFail($id);
-        //$categoryList = BlogCategory::all();
+        $item = $this->blogCategoryRepository->getEdit($id);
+        if (empty($item)) {
+            abort(404);
+        }
 
-        $item = $categoryRepository->getEdit($id);
-        $categoryList = $categoryRepository->getForComboBox();
+        $categoryList
+            = $this->blogCategoryRepository->getForComboBox();
 
         return view('blog.admin.categories.edit',
         compact('item', 'categoryList'));
@@ -114,8 +116,8 @@ class CategoryController extends BaseController
      */
     public function update(BlogCategoryUpdateRequest $request, $id)
     {
-        $item = BlogCategory::find($id);
-        //dd($item);
+        $item = $this->blogCategoryRepository->getEdit($id);
+
         if (empty($item)) {
             return back()
                 ->withErrors(['msg' => "Запись id=[{$id}] не найдена"])
