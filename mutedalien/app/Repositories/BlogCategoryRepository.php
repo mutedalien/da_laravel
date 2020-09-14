@@ -13,6 +13,14 @@ use Illuminate\Database\Eloquent\Collection;
 class BlogCategoryRepository extends CoreRepository
 {
     /**
+     * @return string
+     */
+    protected function getModelClass()
+    {
+        return Model::class;
+    }
+
+    /**
      * Получить модель для редактирования в админке.
      *
      * @param int $id
@@ -32,13 +40,5 @@ class BlogCategoryRepository extends CoreRepository
     public function getForComboBox()
     {
         return $this->startConditions()->all();
-    }
-
-    /**
-     * @return string
-     */
-    public function getModelClass()
-    {
-        return Model::class;
     }
 }
