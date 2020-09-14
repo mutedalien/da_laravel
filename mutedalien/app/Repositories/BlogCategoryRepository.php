@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\BlogCategory as Model;
 use Illuminate\Database\Eloquent\Collection;
+use function GuzzleHttp\Promise\all;
 
 /**
  * Class BlogCategoryRepository
@@ -39,6 +40,46 @@ class BlogCategoryRepository extends CoreRepository
      */
     public function getForComboBox()
     {
-        return $this->startConditions()->all();
+        //return $this->startConditions()->all();
+        $fields = implode(', ', [
+            'id',
+            'CONCAT (id, ", ", title) AS id_title',
+        ]);
+
+        $result[] = $this->startConditions()->all();
+        $result[] = $this
+            ->startConditions()
+            ->select('blog_categories.*',
+                \DB::raw('CONCAT (id, ". ", title) AS id_title'))
+            ->toBase()
+            ->get();
+
+        $result[] = $this
+            ->startConditions()
+            ->selectRaw($fields)
+            ->toBase()
+            ->get();
+
+        return $result;
+    }
+
+    /**
+     * Получить категории для вывода пагинатором
+     *
+     * @param int|null $perPage
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getAllWithPaginate($perPage = null)
+    {
+        $columns = ['id', 'title', 'parent_id'];
+
+        $result = $this
+            ->startConditions()
+            ->select($columns)
+            /* */
+            ->paginate($perPage);
+
+        return $result;
     }
 }

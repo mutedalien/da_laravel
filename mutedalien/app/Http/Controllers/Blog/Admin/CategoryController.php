@@ -7,8 +7,25 @@ use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 use App\Repositories\BlogCategoryRepository;
 
+/**
+ * Управление категориями блога
+ *
+ * @package App\Http\Controllers\Blog\Admin
+ */
 class CategoryController extends BaseController
 {
+    /**
+     * @var BlogCategoryRepository
+     */
+    private $blogCategoryRepository;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +34,8 @@ class CategoryController extends BaseController
     public function index()
     {
         //$dsd = BlogCategory::all();
-        $paginator = BlogCategory::paginate(5);
+        //$paginator = BlogCategory::paginate(5);
+        $paginator = $this->blogCategoryRepository->getAllWithPaginate(5);
 
         //dd($dsd, $paginator);
 
@@ -32,7 +50,8 @@ class CategoryController extends BaseController
     public function create()
     {
         $item = new BlogCategory();
-        $categoryList = BlogCategory::all();
+        $categoryList
+            = $this->blogCategoryRepository->getForComboBox();
 
         return view('blog.admin.categories.edit',
             compact('item', 'categoryList'));
