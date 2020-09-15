@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\BlogCategoryRepository;
+use App\Repositories\BlogPostRepository;
 use Illuminate\Http\Request;
 
 /**
