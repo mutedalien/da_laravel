@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Models\BlogCategory as Model;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\BlogPost as Model;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 
 /**
