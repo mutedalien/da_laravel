@@ -3,10 +3,32 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\BlogCategoryRepository;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+/**
+ * Управление статьями блога
+ *
+ * @package App\Http\Controllers\Blog\Admin
+ */
+class PostController extends BaseController
 {
+    /**
+     * @var BlogPostRepository
+     */
+    private $blogPostRepository;
+
+    /**
+     * PostController constructor
+     */
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->blogPostRepository = app(BlogPostRepository::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +36,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('blog.admin.posts.index');
     }
 
     /**
