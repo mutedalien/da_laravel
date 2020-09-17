@@ -72,9 +72,9 @@
                                       class="form-control"
                                       rows="3">{{ old('excerpt', $item->excerpt) }}</textarea>
                         </div>
-                        <div class="form-chek">
+                        <div class="form-check">
                             <input name="is_published"
-                                   type="hiden"
+                                   type="hidden"
                                    value="0">
                             <input name="is_published"
                                    type="checkbox"
