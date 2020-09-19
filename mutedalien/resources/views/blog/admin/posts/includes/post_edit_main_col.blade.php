@@ -24,7 +24,7 @@
                 </ul>
                 <br>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="maindata" role="tablepanel">
+                    <div class="tab-pane active" id="maindata" role="tabpanel">
                         <div class="form-group">
                             <label for="title">Заголовок</label>
                             <input name="title" value="{{ $item->title }}"
