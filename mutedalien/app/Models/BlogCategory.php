@@ -5,9 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class BlogCategory
+ * @package App\Models
+ *
+ * @property-read BlogCategory $parentCategory
+ * @property-read string $parentTitle
+ */
 class BlogCategory extends Model
 {
     use SoftDeletes;
+
+    /**
+     * ID корня
+     */
+    const ROOT = 1;
 
     protected $fillable
         = [
@@ -42,5 +54,15 @@ class BlogCategory extends Model
             : '???');
 
         return $title;
+    }
+
+    /**
+     * Является ли текущий объект коренным
+     *
+     * @return bool
+     */
+    public function isRoot()
+    {
+        return $this->id == BlogCategory::ROOT;
     }
 }
