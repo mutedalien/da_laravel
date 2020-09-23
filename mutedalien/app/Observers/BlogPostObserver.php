@@ -112,6 +112,13 @@ class BlogPostObserver
         //
     }
 
+    /**
+     * @param \App\Models\BlogPost $blogPost
+     */
+    public function deleting(BlogPost $blogPost)
+    {
+        dd(__METHOD__, $blogPost);
+    }
 
     /**
      * Handle the blog post "deleted" event.
