@@ -117,7 +117,8 @@ class BlogPostObserver
      */
     public function deleting(BlogPost $blogPost)
     {
-        dd(__METHOD__, $blogPost);
+        //dd(__METHOD__, $blogPost);
+        //return false;
     }
 
     /**
@@ -128,7 +129,7 @@ class BlogPostObserver
      */
     public function deleted(BlogPost $blogPost)
     {
-        //
+        //dd(__METHOD__, $blogPost);
     }
 
 
