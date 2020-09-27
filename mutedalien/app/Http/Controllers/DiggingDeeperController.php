@@ -29,6 +29,16 @@ class DiggingDeeperController extends Controller
          */
         $eloquentCollection = BlogPost::withoutTrashed()->get();
 
-        dd(__METHOD__, $eloquentCollection, $eloquentCollection->toArray());
+        // dd(__METHOD__, $eloquentCollection, $eloquentCollection->toArray());
+        /**
+         * @var \Illuminate\Support\Collection $collection
+         */
+        $collection = collect($eloquentCollection->toArray());
+
+        dd(
+            get_class($eloquentCollection),
+            get_class($collection),
+            $collection
+        );
     }
 }
