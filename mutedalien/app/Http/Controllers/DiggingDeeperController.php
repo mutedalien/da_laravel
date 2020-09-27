@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
 class DiggingDeeperController extends Controller
@@ -19,7 +20,15 @@ class DiggingDeeperController extends Controller
      * Билдер запросов - то, с чем можно перепутать коллекции:
      * https://laravel.com/docs/5.8/queries
      */
-    public function collections() {
-        
+    public function collections()
+    {
+        $result = [];
+
+        /**
+         * @var \Illuminate\Database\Eloquent\Collection $eloquentCollection
+         */
+        $eloquentCollection = BlogPost::withoutTrashed()->get();
+
+        dd(__METHOD__, $eloquentCollection, $eloquentCollection->toArray());
     }
 }
