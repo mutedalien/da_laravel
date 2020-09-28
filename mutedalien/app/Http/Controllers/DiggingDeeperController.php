@@ -41,8 +41,8 @@ class DiggingDeeperController extends Controller
 //            $collection
 //        );
 
-        $result['first'] = $collection->first();
-        $result['last'] = $collection->last();
+//        $result['first'] = $collection->first();
+//        $result['last'] = $collection->last();
         // dd($result);
 
         $result['where']['data'] = $collection
@@ -50,5 +50,33 @@ class DiggingDeeperController extends Controller
             ->values()
             ->keyBy('id');
         // dd($result);
+
+        $result['where']['count'] = $result['where']['data']->count();
+        $result['where']['isEmpty'] = $result['where']['data']->isEmpty();
+        $result['where']['isNotEmpty'] = $result['where']['data']->isNotEmpty();
+        // dd($result);
+
+        // не красиво
+        if ($result['where']['count']) {
+            //
+        }
+
+        // так лучше
+        if ($result['where']['data']->isNotEmpty()) {
+            //
+        }
+
+        $result['where_first'] = $collection
+            ->firstWhere('created_at', '>', '2020-09-29 22:26:16');
+
+        // Базовая переменная не изменится. Просто вернется измененная версия
+        $result['map']['all'] = $collection->map(function (array $item) {
+            $newsItem = new \stdClass();
+            $newsItem -> item_id = $item['id'];
+            $newsItem -> item_name = $item['title'];
+            $newsItem -> exists = is_null($item['deleted_at']);
+
+            return $newsItem;
+        });
     }
 }
