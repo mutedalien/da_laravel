@@ -57,17 +57,18 @@ class DiggingDeeperController extends Controller
         // dd($result);
 
         // не красиво
-        if ($result['where']['count']) {
-            //
-        }
+//        if ($result['where']['count']) {
+//            //
+//        }
 
         // так лучше
-        if ($result['where']['data']->isNotEmpty()) {
-            //
-        }
+//        if ($result['where']['data']->isNotEmpty()) {
+//            //
+//        }
 
-        $result['where_first'] = $collection
-            ->firstWhere('created_at', '>', '2020-09-29 22:26:16');
+//        $result['where_first'] = $collection
+//            ->firstWhere('created_at', '>', '2020-09-29 22:26:16');
+//        dd($result);
 
         // Базовая переменная не изменится. Просто вернется измененная версия
         $result['map']['all'] = $collection->map(function (array $item) {
@@ -78,5 +79,11 @@ class DiggingDeeperController extends Controller
 
             return $newsItem;
         });
+//        dd($result);
+
+        $result['map']['not_exists'] = $result['map']['all']
+            ->where('exists', '=', false)
+            ->values();
+        dd($result);
     }
 }
