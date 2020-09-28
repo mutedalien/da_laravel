@@ -35,10 +35,20 @@ class DiggingDeeperController extends Controller
          */
         $collection = collect($eloquentCollection->toArray());
 
-        dd(
-            get_class($eloquentCollection),
-            get_class($collection),
-            $collection
-        );
+//        dd(
+//            get_class($eloquentCollection),
+//            get_class($collection),
+//            $collection
+//        );
+
+        $result['first'] = $collection->first();
+        $result['last'] = $collection->last();
+        // dd($result);
+
+        $result['where']['data'] = $collection
+            ->where('category_id', 10)
+            ->values()
+            ->keyBy('id');
+        // dd($result);
     }
 }
