@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DiggingDeeperController extends Controller
@@ -51,9 +52,9 @@ class DiggingDeeperController extends Controller
             ->keyBy('id');
         // dd($result);
 
-        $result['where']['count'] = $result['where']['data']->count();
-        $result['where']['isEmpty'] = $result['where']['data']->isEmpty();
-        $result['where']['isNotEmpty'] = $result['where']['data']->isNotEmpty();
+//        $result['where']['count'] = $result['where']['data']->count();
+//        $result['where']['isEmpty'] = $result['where']['data']->isEmpty();
+//        $result['where']['isNotEmpty'] = $result['where']['data']->isNotEmpty();
         // dd($result);
 
         // не красиво
@@ -71,19 +72,32 @@ class DiggingDeeperController extends Controller
 //        dd($result);
 
         // Базовая переменная не изменится. Просто вернется измененная версия
-        $result['map']['all'] = $collection->map(function (array $item) {
+//        $result['map']['all'] = $collection->map(function (array $item) {
+//            $newsItem = new \stdClass();
+//            $newsItem -> item_id = $item['id'];
+//            $newsItem -> item_name = $item['title'];
+//            $newsItem -> exists = is_null($item['deleted_at']);
+//
+//            return $newsItem;
+//        });
+//        dd($result);
+//
+//        $result['map']['not_exists'] = $result['map']['all']
+//            ->where('exists', '=', false)
+//            ->values()
+//            ->keyBy('item_id');
+//        dd($result);
+
+        // Базовая переменная изменится (трансформируется)
+        $collection->transform(function (array $item) {
             $newsItem = new \stdClass();
             $newsItem -> item_id = $item['id'];
             $newsItem -> item_name = $item['title'];
             $newsItem -> exists = is_null($item['deleted_at']);
+            $newsItem -> created_at = Carbon::parse($item['created_at']);
 
             return $newsItem;
         });
-//        dd($result);
-
-        $result['map']['not_exists'] = $result['map']['all']
-            ->where('exists', '=', false)
-            ->values();
-        dd($result);
+        dd($collection);
     }
 }
