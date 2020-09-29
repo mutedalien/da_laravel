@@ -98,6 +98,19 @@ class DiggingDeeperController extends Controller
 
             return $newsItem;
         });
-        dd($collection);
+        // dd($collection);
+        $newsItem = new \stdClass();
+        $newsItem -> id = 9999;
+
+        $newsItem2 = new \stdClass();
+        $newsItem2 -> id = 8888;
+        // dd($newsItem, $newsItem2);
+
+        // Установить элемент в начало коллекции
+        $newsItemFirst = $collection->prepend($newsItem)->first();
+        $newsItemLast = $collection->push($newsItem2)->last();
+        $pulleditItem = $collection->push(1);
+
+        dd(compact('collection', 'newsItemFirst', 'newsItemLast', 'pulleditItem'));
     }
 }
