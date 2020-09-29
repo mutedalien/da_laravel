@@ -107,10 +107,23 @@ class DiggingDeeperController extends Controller
         // dd($newsItem, $newsItem2);
 
         // Установить элемент в начало коллекции
-        $newsItemFirst = $collection->prepend($newsItem)->first();
-        $newsItemLast = $collection->push($newsItem2)->last();
-        $pulleditItem = $collection->push(1);
+//        $newsItemFirst = $collection->prepend($newsItem)->first();
+//        $newsItemLast = $collection->push($newsItem2)->last();
+//        $pulleditItem = $collection->push(1);
+//
+//        dd(compact('collection', 'newsItemFirst', 'newsItemLast', 'pulleditItem'));
 
-        dd(compact('collection', 'newsItemFirst', 'newsItemLast', 'pulleditItem'));
+        // Фильтрация. Замена orWhere()
+        $filtered = $collection-filter(function ($item) {
+            $byDay = $item->created_at->isFriday();
+            $byDate = $item->created_at->day == 11;
+
+            $result = $item->created_at->isFriday() && ($item->created_at->day == 11);
+            $result = $byDay && $byDate;
+
+            return $result;
+        });
+
+        dd(compact('filtered'));
     }
 }
