@@ -99,11 +99,11 @@ class DiggingDeeperController extends Controller
             return $newsItem;
         });
         // dd($collection);
-        $newsItem = new \stdClass();
-        $newsItem -> id = 9999;
-
-        $newsItem2 = new \stdClass();
-        $newsItem2 -> id = 8888;
+//        $newsItem = new \stdClass();
+//        $newsItem -> id = 9999;
+//
+//        $newsItem2 = new \stdClass();
+//        $newsItem2 -> id = 8888;
         // dd($newsItem, $newsItem2);
 
         // Установить элемент в начало коллекции
@@ -114,16 +114,22 @@ class DiggingDeeperController extends Controller
 //        dd(compact('collection', 'newsItemFirst', 'newsItemLast', 'pulleditItem'));
 
         // Фильтрация. Замена orWhere()
-        $filtered = $collection-filter(function ($item) {
-            $byDay = $item->created_at->isFriday();
-            $byDate = $item->created_at->day == 11;
+//        $filtered = $collection->filter(function ($item) {
+//            $byDay = $item->created_at->isFriday();
+//            $byDate = $item->created_at->day == 11;
+//
+//            $result = $item->created_at->isFriday() && ($item->created_at->day == 11);
+//            $result = $byDay && $byDate;
+//
+//            return $result;
+//        });
+//
+//        dd(compact('filtered'));
 
-            $result = $item->created_at->isFriday() && ($item->created_at->day == 11);
-            $result = $byDay && $byDate;
+        $sortedSimpleCollection = collect([5, 3, 1, 2, 4])->sort();
+        $sortedAscCollection = $collection->sortBy('created_at');
+        $sortedDescCollection = $collection->sortByDesc('item_id');
 
-            return $result;
-        });
-
-        dd(compact('filtered'));
+        dd(compact('sortedSimpleCollection', 'sortedAscCollection', 'sortedDescCollection'));
     }
 }
