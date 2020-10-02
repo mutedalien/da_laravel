@@ -13,13 +13,20 @@ class BlogPostAfterDeleteJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
+     * @var int
+     */
+    private $blogPostId;
+
+    /**
      * Create a new job instance.
+     *
+     * @param int $blogPostId
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($blogPostId)
     {
-        //
+        $this->blogPostId = $blogPostId;
     }
 
     /**
@@ -29,6 +36,6 @@ class BlogPostAfterDeleteJob implements ShouldQueue
      */
     public function handle()
     {
-        //
+        logs()->warning("Удалена запись в блоге [{$this->blogPostId}]");
     }
 }
