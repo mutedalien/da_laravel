@@ -39,21 +39,9 @@ class PostController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(BlogPostCreateRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->input();
-        $item = BlogPost::create($data);
-
-        if ($item) {
-            $job = new BlogPostAfterCreateJob($item);
-            $this->dispatch($job);
-
-            return redirect()->route('blog.admin.posts.edit', [$item->id])
-                ->with(['success' => 'Успешно сохранено']);
-        } else {
-            return back()->withErrors(['msg' => 'Ошибка сохранения'])
-                ->withInput();
-        }
+        //
     }
 
     /**
