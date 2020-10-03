@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Blog;
 
 //use App\Http\Controllers\Controller;
+use App\Http\Requests\BlogPostCreateRequest;
+use App\Jobs\BlogPostAfterCreateJob;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
@@ -23,11 +25,25 @@ class PostController extends BaseController
     /**
      * Show the form for creating a new resource.
      *
+     * @param BlogPostCreateRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(BlogPostCreateRequest $request)
     {
-        //
+        $data = $request->input();
+        $item = BlogPost::create($data);
+
+        if ($item) {
+            $job = new BlogPostAfterCreateJob($item);
+            $this->dispatch($job);
+
+            return redirect()->route('blog.admin.posts.edit', [$item->id])
+                ->with(['success' => 'Успешно сохранено']);
+        } else {
+            return back()->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**
