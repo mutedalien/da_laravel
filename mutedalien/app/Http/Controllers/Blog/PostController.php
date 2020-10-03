@@ -25,11 +25,21 @@ class PostController extends BaseController
     /**
      * Show the form for creating a new resource.
      *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
      * @param BlogPostCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(BlogPostCreateRequest $request)
+    public function store(BlogPostCreateRequest $request)
     {
         $data = $request->input();
         $item = BlogPost::create($data);
@@ -44,17 +54,6 @@ class PostController extends BaseController
             return back()->withErrors(['msg' => 'Ошибка сохранения'])
                 ->withInput();
         }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
